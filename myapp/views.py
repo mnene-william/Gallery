@@ -75,6 +75,20 @@ def edit_profile(request):
     return render (request, 'editprofile.html', context)
 
 
+@login_required
+def upload_photo(request):
+    if request.method == 'POST':
+        form = PhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            photo = form.save(commit=False)
+            photo.user = request.user
+            photo.save()
+            return redirect('home')
+    else:
+        form = PhotoForm()
+    return render(request, 'upload.html', {'form': form})
+
+
 def log_out(request):
     logout(request)
     return redirect('login')
