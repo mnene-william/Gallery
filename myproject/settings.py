@@ -44,6 +44,10 @@ cloudinary.config(
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOST', '127.0.0.1').split(',')
 
+LOGIN_REDIRECT_URL = 'home'
+
+LOGIN_URL = 'login'
+
 
 # Application definition
 
