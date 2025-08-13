@@ -15,7 +15,11 @@
         <nav>
             {% if user.is_authenticated %}
                 <span class="text-gray-600 mr-4">Hello, <a href="{% url 'profile' %}" class="font-bold hover:underline">{{ user.username }}</a>!</span>
-                <a href="{% url 'logout' %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Sign Out</a>
+                <form method="post" action="{% url 'logout' %}" class="inline-block">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Sign Out</button>
+                </form>
+                
             {% else %}
                 <a href="{% url 'login' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Login</a>
                 <a href="{% url 'register' %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded">Sign Up</a>

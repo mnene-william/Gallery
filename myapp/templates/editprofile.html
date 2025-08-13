@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-xl mx-auto mt-10 bg-white rounded-lg shadow-xl overflow-hidden">
+<div class="bg-gray-50 px-8 py-6 border-b">
+<h2 class="text-2xl font-semibold text-gray-800 text-center">Edit Profile</h2>
+</div>
+<form method="post" enctype="multipart/form-data" class="px-8 py-8">
+{% csrf_token %}
+<div class="mb-6">
+<label for="{{ u_form.username.id_for_label }}" class="block text-gray-700 font-bold mb-2">Username</label>
+{{ u_form.username }}
+{% if u_form.username.errors %}
+<p class="text-red-500 text-xs italic">{{ u_form.username.errors.as_text }}</p>
+{% endif %}
+</div>
+<div class="mb-6">
+<label for="{{ u_form.email.id_for_label }}" class="block text-gray-700 font-bold mb-2">Email</label>
+{{ u_form.email }}
+{% if u_form.email.errors %}
+<p class="text-red-500 text-xs italic">{{ u_form.email.errors.as_text }}</p>
+{% endif %}
+</div>
+<div class="mb-6">
+<label for="{{ p_form.bio.id_for_label }}" class="block text-gray-700 font-bold mb-2">Bio</label>
+{{ p_form.bio }}
+{% if p_form.bio.errors %}
+<p class="text-red-500 text-xs italic">{{ p_form.bio.errors.as_text }}</p>
+{% endif %}
+</div>
+<div class="mb-6">
+<label for="{{ p_form.profile_picture.id_for_label }}" class="block text-gray-700 font-bold mb-2">Profile Picture</label>
+{{ p_form.profile_picture }}
+{% if p_form.profile_picture.errors %}
+<p class="text-red-500 text-xs italic">{{ p_form.profile_picture.errors.as_text }}</p>
+{% endif %}
+</div>
+<div class="mt-8">
+<button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline">Update Profile</button>
+</div>
+</form>
+</div>
+{% endblock %}
