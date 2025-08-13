@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 from .models import *
 from .forms import *
+from django.db.models import Q
 
 # Create your views here.
 
@@ -21,23 +22,18 @@ def user_registration(request):
 
 @login_required
 def photo_gallery(request):
-    form = PhotoForm()
+    query = request.GET.get('q')
 
-    if request.method == 'POST':
-        form = PhotoForm(request.POST, request.FILES)
-        if form.is_valid():
-            photo = form.save(commit=False)
-            photo.user = request.user
-            photo.save()
-            return redirect('home')
-        else:
-            form = PhotoForm()
-
-    photos = Photo.objects.all()
+    if query:
+        photos = Photo.objects.filter(
+            Q(title__icontains=query) | Q(tags__icontains=query)
+        ).order_by('-created_at')
+    else:
+        photos = Photo.objects.all().order_by('-created_at')
 
     context = {
         'photos': photos,
-        'form': form,
+        'query': query,
     }
 
     return render(request, 'home.html', context)
