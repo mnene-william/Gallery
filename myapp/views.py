@@ -22,7 +22,7 @@ def user_registration(request):
 @login_required
 def photo_gallery(request):
     form = PhotoForm()
-    
+
     if request.method == 'POST':
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -41,6 +41,14 @@ def photo_gallery(request):
     }
 
     return render(request, 'home.html', context)
+
+@login_required
+def profile_view(request):
+    user_photos = request.user.photos.all()
+    context = {'user': request.user, 'user_photos':user_photos}
+
+    return render (request, 'profile.html', context)
+
 
 
 
