@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 from .models import *
@@ -92,5 +92,15 @@ def upload_photo(request):
 def log_out(request):
     logout(request)
     return redirect('login')
+
+def delete_photo(request, photo_id):
+    if request.method == 'POST':
+        photo = get_object_or_404(Photo, id=photo_id)
+
+        if photo.user == request.user:
+            photo.delete()
+            return redirect('profile')
+        else:
+            return redirect('profile')
 
 
