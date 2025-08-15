@@ -98,5 +98,39 @@ def delete_photo(request, photo_id):
             return redirect('profile')
         else:
             return redirect('profile')
+        
+@login_required
+def photo_details(request, photo_id):
+    photo = get_object_or_404(Photo, id=photo_id)
+
+    if request.method == 'POST':
+        comment_text = request.POST.get('comment_text')
+        if comment_text:
+
+            Comment.objects.create(photo=photo, user=request.user, text=comment_text)
+
+        return redirect('photo_detail', photo_id=photo_id)
+    
+    is_liked = Like.objects.filter(photo=photo, user=request.user).exists()
+
+    context = {
+        'photo': photo,
+        'is_liked': is_liked,
+    }
+
+    return render(request, 'myapp/photo_detail', context)
+
+@login_required
+def like_post(request, photo_id):
+    photo = get_object_or_404(Photo, id=photo_id)
+
+    if request.method == 'POST':
+        like, created = Like.objects,get_object_or_404(photo=photo, user=request.user)
+
+        if not created:
+
+            like.delete()
+
+    return redirect('myapp/photo_detail', id=photo_id)
 
 

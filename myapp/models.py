@@ -21,3 +21,23 @@ class Profile(models.Model):
 
     def __str__ (self):
         return self.user.username
+    
+class Comment(models.Model):
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__ (self):
+        return f'{self.user.username} commented on {self.photo.title}'
+
+class Like(models.Model):
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE, related_name='likes')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('photo', 'user')
+
+    def __str__ (self):
+        return f'{self.user.username} liked {self.photo.title}'
