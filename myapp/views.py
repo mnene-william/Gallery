@@ -125,7 +125,7 @@ def like_post(request, photo_id):
     photo = get_object_or_404(Photo, id=photo_id)
 
     if request.method == 'POST':
-        like, created = Like.objects.get_object_or_404(photo=photo, user=request.user)
+        like, created = Like.objects.get_or_create(photo=photo, user=request.user)
 
         if not created:
 
