@@ -9,12 +9,12 @@
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
     <header class="bg-white shadow p-4 flex justify-between items-center">
-        <h1 class="text-3xl font-bold text-gray-800">
-            <a href="{% url 'home' %}">Photo Gallery</a>
-        </h1>
-        <form method="get" action="{% url 'home' %}" class="flex-grow max-w-lg mx-4">
-            <input type="text" name="q" placeholder="Search photos by title or tags.." class="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-blue-500" />
-
+          <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">
+              <a href="{% url 'home' %}">Photo Gallery</a>
+          </h1>
+        <form method="get" action="{% url 'home' %}" class="flex-grow max-w-lg mx-4 flex">
+             <input type="text" name="q" placeholder="Search photos by title or tags.." class="w-full px-4 py-2 rounded-l-full border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+             <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-r-full font-semibold hover:bg-blue-600 transition-colors duration-200">Search</button>
         </form>
            <nav class="flex items-center space-x-4">
                <a href="{% url 'home' %}" class="px-4 py-2 rounded-full text-sm font-semibold text-gray-700 hover:bg-gray-200 transition-colors duration-200">Home</a>
@@ -29,11 +29,11 @@
                 <button type="submit" class="px-4 py-2 rounded-full text-sm font-semibold bg-red-500 text-white hover:bg-red-600 transition-colors duration-200">Logout</button>
                </form>
 
-             {% else %}
-             <a href="{% url 'login' %}" class="px-4 py-2 rounded-full text-sm font-semibold bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-200">Login</a>
-             <a href="{% url 'register' %}" class="px-4 py-2 rounded-full text-sm font-semibold bg-green-500 text-white hover:bg-green-600 transition-colors duration-200">Register</a>
-            {% endif %}
-    </nav>
+               {% else %}
+               <a href="{% url 'login' %}" class="px-4 py-2 rounded-full text-sm font-semibold bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-200">Login</a>
+               <a href="{% url 'register' %}" class="px-4 py-2 rounded-full text-sm font-semibold bg-green-500 text-white hover:bg-green-600 transition-colors duration-200">Register</a>
+              {% endif %}
+           </nav>
     </header>
 
     <main class="container mx-auto mt-8 px-4">

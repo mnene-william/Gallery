@@ -2,6 +2,14 @@
 
 {% block content %}
 <div class="max-w-4xl mx-auto mt-10 p-8 bg-white rounded-xl shadow-2xl">
+
+    <a href="{%url 'home' %}" class="flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-200 mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span>Back to Gallery</span>
+    </a>
+
     <div class="flex flex-col items-center">
         <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="rounded-lg shadow-md mb-6 w-full object-cover">
         
@@ -12,10 +20,12 @@
 
     <hr class="my-8">
 
-    <!-- Likes Section -->
+ 
     <div class="flex items-center mb-6">
+
         <form method="post" action="{% url 'like_photo' photo.id %}" class="inline-block">
             {% csrf_token %}
+
             <button type="submit" 
                     class="relative transition-all duration-300 transform scale-100 hover:scale-125 
                            {% if is_liked %}text-red-500 animate-like-pop{% else %}text-gray-400{% endif %}">
@@ -23,13 +33,14 @@
                     <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
                 </svg>
             </button>
+
         </form>
+
         <span class="ml-2 text-gray-600 text-lg font-semibold transition-all duration-300">
             {{ photo.likes.count }} Likes
         </span>
     </div>
 
-    <!-- Comments Section -->
     <h3 class="text-2xl font-bold text-gray-800 mb-4">Comments ({{ photo.comments.count }})</h3>
     
     <div class="space-y-4">
@@ -39,17 +50,20 @@
                 <p class="text-gray-700 mt-1">{{ comment.text }}</p>
                 <p class="text-sm text-gray-500 mt-2">{{ comment.created_at|date:"F d, Y" }}</p>
             </div>
+
         {% empty %}
             <p class="text-gray-600">No comments yet. Be the first!</p>
         {% endfor %}
+
     </div>
 
     <hr class="my-8">
 
-    <!-- Add Comment Form -->
     <h3 class="text-2xl font-bold text-gray-800 mb-4">Add a Comment</h3>
+
     <form method="post" action="{% url 'photo_detail' photo.id %}">
         {% csrf_token %}
+
         <textarea name="comment_text" rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Write a comment..."></textarea>
         <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">Post Comment</button>
     </form>
