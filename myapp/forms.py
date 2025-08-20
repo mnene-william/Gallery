@@ -10,8 +10,9 @@ class PhotoForm(forms.ModelForm):
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
-    class Meta(UserCreationForm.Meta):
-        fields = UserCreationForm.Meta.fields + ('email',)
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
